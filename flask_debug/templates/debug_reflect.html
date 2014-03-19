@@ -1,0 +1,36 @@
+{% extends "debug_base.html" %}
+
+{% block container %}
+    {{super()}}
+        <h1>Reflection for {{app.name}}</h1>
+        <h2>Views</h2>
+        <table class="table table-striped table-hover">
+            <tr>
+                <th>Name</th>
+                <th>View function</th>
+            </tr>
+        {% for name, view in app.view_functions.items() %}
+            <tr>
+                <td><a name="endpoint_{{name.__hash__()}}"></a>{{name}}</td>
+                <td><code>{{view}}</code></td>
+            </tr>
+        {% endfor %}
+        </table>
+
+        <h2>URLMap</h2>
+        <table class="table table-striped table-hover">
+            <tr>
+                <th>Rule</th>
+                <th>Methods</th>
+                <th>Endpoint</th>
+            </tr>
+        {% for rule in app.url_map.iter_rules() %}
+            <tr>
+                <td><a href="{{rule}}">{{rule}}</a></td>
+                <td>{{rule.methods|sort|join(', ')}}</td>
+                <td><a href="#endpoint_{{rule.endpoint.__hash__()}}">{{rule
+                    .endpoint}}</a></td>
+            </tr>
+        {% endfor %}
+        </table>
+{% endblock %}

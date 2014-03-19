@@ -1,0 +1,24 @@
+<html>
+<head>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/latest/css/bootstrap-theme.min.css">
+    <title>_debug: {{app.name}}</title>
+</head>
+<body>
+
+{% block content %}
+<div class="container" style="margin-top: 1em;">
+{% block container %}
+  <ul class="nav nav-tabs">
+  <li{% if request.endpoint.endswith('.debug_reflect') %} class="active"{%
+      endif %}><a
+          href="{{url_for('.debug_reflect')}}">Reflect</a></li>
+  <li{% if request.endpoint.endswith('.debug_config') %} class="active"{%
+      endif %}><a href="{{url_for('.debug_config')}}">Config</a></li>
+</ul>
+{% endblock %}
+</div>
+{% endblock %}
+<script src="//netdna.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
+</body>
+</html>

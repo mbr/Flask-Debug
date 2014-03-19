@@ -57,8 +57,7 @@
             class="debug-rule hidden"{% endif %}>
                 <td><a href="{{rule}}">{{rule}}</a></td>
                 <td>{{rule.methods|sort|join(', ')}}</td>
-                <td><a href="#endpoint_{{rule.endpoint.__hash__()}}">{{rule
-                    .endpoint}}</a></td>
+                <td><a href="#endpoint_{{rule.endpoint.__hash__()}}">{{rule.endpoint}}</a></td>
             </tr>
         {% endfor %}
         </table>

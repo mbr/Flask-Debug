@@ -8,6 +8,10 @@
           if ($(this).is(':checked')) $('.debug-rule').removeClass('hidden');
           else $('.debug-rule').addClass('hidden');
        });
+       $('#show-debug-views').change(function() {
+          if ($(this).is(':checked')) $('.debug-view').removeClass('hidden');
+          else $('.debug-view').addClass('hidden');
+       });
     });
 </script>
 {% endblock %}
@@ -16,13 +20,19 @@
     {{super()}}
         <h1>Reflection for {{app.name}}</h1>
         <h2>Views</h2>
+        <div class="checkbox">
+            <label>
+              <input type="checkbox" id="show-debug-views">Show
+                Flask-Debug views
+            </label>
+        </div>
         <table class="table table-striped table-hover">
             <tr>
                 <th>Name</th>
                 <th>View function</th>
             </tr>
         {% for name, view in app.view_functions.items() %}
-            <tr>
+            <tr{% if name.startswith('debug.') %} class="debug-view hidden"{% endif %}>
                 <td><a name="endpoint_{{name.__hash__()}}"></a>{{name}}</td>
                 <td><code>{{view}}</code></td>
             </tr>

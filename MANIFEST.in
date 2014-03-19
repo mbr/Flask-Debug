@@ -1,0 +1,1 @@
+include flask_debug/templates/*.html

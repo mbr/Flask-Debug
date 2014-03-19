@@ -1,8 +1,8 @@
 Flask-Debug
 ===========
 
-Flask-Debug is a simple WIP Flask-extension, intended solely for development
-. Example usage::
+Flask-Debug is a simple WIP Flask-extension, intended solely for development.
+Example usage::
 
   from flask import Flask
   from flask_debug import Debug

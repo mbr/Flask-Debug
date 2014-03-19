@@ -12,7 +12,7 @@ def read(fname):
 
 setup(
     name='Flask-Debug',
-    version='0.1.0.dev1',
+    version='0.2.dev1',
     description='Shows reflection/configuration to aid the development of '
                 'Flask applications.',
     long_description=read('README.rst'),

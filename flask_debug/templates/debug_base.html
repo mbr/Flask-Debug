@@ -3,6 +3,11 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/latest/css/bootstrap-theme.min.css">
     <title>_debug: {{app.name}}</title>
+    <style type="text/css">
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
@@ -19,6 +24,9 @@
 {% endblock %}
 </div>
 {% endblock %}
+{% block scripts %}
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
+{% endblock %}
 </body>
 </html>

@@ -52,7 +52,7 @@
                 <th>Methods</th>
                 <th>Endpoint</th>
             </tr>
-        {% for rule in app.url_map.iter_rules()|sort(True) %}
+        {% for rule in app.url_map.iter_rules()|sort(True, attribute='endpoint') %}
             <tr{% if rule.endpoint.startswith('debug.debug_') %}
             class="debug-rule hidden"{% endif %}>
                 <td><a href="{{rule}}">{{rule}}</a></td>

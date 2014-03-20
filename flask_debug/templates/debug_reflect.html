@@ -31,7 +31,7 @@
                 <th>Name</th>
                 <th>View function</th>
             </tr>
-        {% for name, view in app.view_functions.items() %}
+        {% for name, view in app.view_functions.items()|sort(True) %}
             <tr{% if name.startswith('debug.') %} class="debug-view hidden"{% endif %}>
                 <td><a name="endpoint_{{name.__hash__()}}"></a>{{name}}</td>
                 <td><code>{{view}}</code></td>

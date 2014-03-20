@@ -17,6 +17,7 @@ setup(
                 'Flask applications.',
     long_description=read('README.rst'),
     include_package_data=True,
+    zip_safe=False,
     author='Marc Brinkmann',
     author_email='git@marcbrinkmann.de',
     url='http://github.com/mbr/flask-debug',

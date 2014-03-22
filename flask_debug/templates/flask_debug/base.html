@@ -2,7 +2,7 @@
 <head>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/latest/css/bootstrap-theme.min.css">
-    <title>_debug: {{g.app.name}}</title>
+    <title>{{g.menu[request.endpoint]|default('flask-debug')}}: {{g.app.name}}</title>
 </head>
 <body>
 
@@ -10,7 +10,7 @@
 <div class="container" style="margin-top: 1em;">
 {% block container %}
   <ul class="nav nav-tabs">
-  {% for name, endpoint in g.menu.items() %}
+  {% for endpoint, name in g.menu.items() %}
       <li{% if request.endpoint == endpoint %} class="active"{% endif %}>
           <a href="{{url_for(endpoint)}}">{{name}}</a>
       </li>

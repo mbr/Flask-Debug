@@ -58,7 +58,8 @@ class DebugBlueprint(Blueprint):
 
             wrapped = wrapper(f)
             if name:
-                self.__menu[name] = '{}.{}'.format(self.name, endpoint)
+                endpoint = '{}.{}'.format(self.name, endpoint)
+                self.__menu[endpoint] = name
             return wrapped
 
         return _

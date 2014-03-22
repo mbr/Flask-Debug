@@ -18,6 +18,15 @@ the application, such as a list of registered views,
 url maps or configuration values.
 
 
+Installation
+------------
+
+Flask-Debug is available from `PyPI <http://pypi
+.python/org/pypi/Flask-Debug>`_, making installation very simple::
+
+  pip install Flask-Debug
+
+
 Security
 --------
 

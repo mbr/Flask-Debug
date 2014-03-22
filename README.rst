@@ -62,7 +62,7 @@ There are a few conventions:
 
 Flask-Debug ships a few base templates which you can use,
 which will use `Flask-Bootstrap <http://pypi.python
-.org/pypi/Flask-Bootstrap`_ if available, or a minimal included template
+.org/pypi/Flask-Bootstrap>`_ if available, or a minimal included template
 otherwise::
 
   {# file: flask_debug_myext/templates/myext/status.html #}

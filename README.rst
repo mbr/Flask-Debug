@@ -39,29 +39,28 @@ package like that::
 
   # file: flask_debug_myext/__init__.py
 
-  # if you set a variable ``template_folder``, templates will be available
-  # from the folder ``flask_debug_myext/templates``.
   template_folder = 'templates'
 
-  # this is the central hook, the following function (which must be named
-  # exactly as it is below) will be called with the Flask-Debug blueprint
-  # as a parameter
   def initialize_debug_ext(dbg):
+      @dbg.route('/_myext/status')
+      def debug_list_extensions():
+          status = 'all good'
 
-    # the route function will automatically add routes to the flask-debug menu
-    # to suppress this behavior, add an argument of ``menu_name=None``
-    # it's a good convention to start with an underscore + your extension name
-    # to avoid conflicts
-    @dbg.route('/_myext/status')
-    def debug_list_extensions():
-        # by convention, views in plugins should start with ``debug_``
+          return render_template('myext/status.html', status=status)
 
-        status = 'all good'
+If you set a variable ``template_folder``, templates will be available from the
+folder ``flask_debug_myext/templates``.
 
-        # this will render ``flask_debug_myext/templates/myext/status.html``
-        # template namespace is global, therefore we use folders here as a
-        # namespace
-        return render_template('myext/status.html', status=status)
+``initialize_debug_ext()`` will be called with a ``flask.Blueprint``-Object
+as the first parameter, onto which you can register your own routes. The
+``route()`` function will automatically a menu entry, to suppress this
+behavior, add an argument of ``menu_name=None``. It's a good convention to
+start urls with an underscore + your extension name to avoid conflicts.
+
+There are a few conventions: Views in plugins should start with ``debug_``,
+URLs in routes should start with underscore + your extension name. Inside
+your ``templates``-folder, you should also create subfolder named ``myext``
+for all of your templates, as the template namespace is global.
 
 Using `Bootstrap <http://getboostrap.com>`_ (without depending on
 `Flask-Bootstrap <http://pypi.python.org/pypi/Flask-Bootstrap>`_,

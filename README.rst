@@ -1,7 +1,8 @@
 Flask-Debug
 ===========
 
-.. image:: https://travis-ci.org/mbr/Flask-Debug.png?branch=master   :target: https://travis-ci.org/mbr/Flask-Debug
+.. image:: https://travis-ci.org/mbr/Flask-Debug.svg?branch=master
+   :target: https://travis-ci.org/mbr/Flask-Debug
 
 Flask-Debug is a simple WIP Flask-extension, intended solely for development.
 Example usage::

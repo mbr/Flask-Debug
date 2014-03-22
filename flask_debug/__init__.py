@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from functools import wraps
 
 from flask import current_app, render_template, Blueprint, abort, url_for, redirect, \
@@ -7,33 +8,51 @@ import sys
 from jinja2 import PackageLoader, ChoiceLoader
 
 
-dbg = Blueprint('debug', __name__, template_folder='templates')
+
+class DebugBlueprint(Blueprint):
+    def __init__(self, *args, **kwargs):
+        super(DebugBlueprint, self).__init__(*args, **kwargs)
+        self.__menu = OrderedDict()
+        self.__plugins = None
+
+    def _debug_load_plugins(self):
+        if self.__plugins is not None:
+            # already loaded
+            return
+
+        dbg.__plugins = {}
+
+        for name, mod in sys.modules.items():
+            if (name.startswith('flask_debug_') and
+                    hasattr(mod, 'initialize_debug_ext')):
+                mod.initialize_debug_ext(dbg)
+                dbg.__plugins[name] = mod
+
+        # collect loaders
+        loaders = [dbg.jinja_loader]
+        for name, mod in dbg.__plugins.items():
+            template_folder = getattr(mod, 'template_folder', None)
+            if template_folder:
+                loaders.append(PackageLoader(name, template_folder))
+
+        # replace blueprints loader with new loader that includes extensions
+        dbg.jinja_loader = ChoiceLoader(loaders)
+
+    def route(self, rule, **options):
+        on_menu = options.pop('on_menu', True)
+        wrapper = super(DebugBlueprint, self).route(rule, **options)
+
+        @wraps(wrapper)
+        def _(f):
+            endpoint = options.get('endpoint', f.__name__)
+            wrapped = wrapper(f)
+            self.__menu[endpoint] = wrapped
+            return wrapped
+
+        return _
 
 
-def load_plugins():
-    # load plugins once
-    if hasattr(dbg, '_flask_debug'):
-        return
-
-    dbg._flask_debug = {
-        'extensions': {},
-    }
-
-    for name, mod in sys.modules.items():
-        if (name.startswith('flask_debug_') and
-                hasattr(mod, 'initialize_debug_ext')):
-            mod.initialize_debug_ext(dbg)
-            dbg._flask_debug['extensions'][name] = mod
-
-    # collect loaders
-    loaders = [dbg.jinja_loader]
-    for name, mod in dbg._flask_debug['extensions'].items():
-        template_folder = getattr(mod, 'template_folder', None)
-        if template_folder:
-            loaders.append(PackageLoader(name, template_folder))
-
-    # replace blueprints loader with new loader that includes extensions
-    dbg.jinja_loader = ChoiceLoader(loaders)
+dbg = DebugBlueprint('debug', __name__, template_folder='templates')
 
 
 def requires_debug(view):
@@ -77,8 +96,8 @@ def make_current_app_available():
 
 class Debug(object):
     def __init__(self, app=None):
-        import flask_debug_extensions
-        load_plugins()
+        import flask_debug_extensions  # import plugin-list plugin
+        dbg._debug_load_plugins()
         if app:
             self.init_app(app)
 

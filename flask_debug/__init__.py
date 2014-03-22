@@ -55,7 +55,7 @@ def debug_root():
 @requires_debug
 def debug_reflect():
     return render_template(
-        'debug_reflect.html',
+        'flask_debug/reflect.html',
         app=current_app,
     )
 
@@ -64,7 +64,7 @@ def debug_reflect():
 @requires_debug
 def debug_config():
     return render_template(
-        'debug_config.html',
+        'flask_debug/config.html',
         app=current_app,
     )
 

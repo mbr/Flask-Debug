@@ -8,4 +8,4 @@ def initialize_debug_ext(dbg):
     @dbg.route('/_extensions/')
     @requires_debug
     def debug_list_extensions():
-        return render_template('debug_extensions.html', app=current_app)
+        return render_template('flask_debug/extensions.html', app=current_app)

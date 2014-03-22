@@ -9,6 +9,7 @@ def app():
     Debug(app)
     app.config['DEBUG'] = True
     app.config['TESTING'] = True
+    app.config['FLASK_DEBUG_DISABLE_STRICT'] = True
 
     assert app.debug
     assert app.testing

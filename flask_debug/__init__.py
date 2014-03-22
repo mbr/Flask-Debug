@@ -111,6 +111,10 @@ def make_current_app_available():
     g.menu = dbg._debug_get_menu()
     g.dbg = dbg
 
+    g.bootstrap_base_template = 'flask_debug/bootstrap_base.html'
+    if 'bootstrap' in getattr(current_app, 'extensions', {}):
+        g.bootstrap_base_template = 'bootstrap/base.html'
+
 
 class Debug(object):
     def __init__(self, app=None):

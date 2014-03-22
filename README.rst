@@ -60,8 +60,10 @@ There are a few conventions:
 * Inside your ``templates``-folder, you should also create subfolder named ``myext``
   for all of your templates, as the template namespace is global.
 
-Using `Bootstrap <http://getboostrap.com>`_, Flask-Debug ships a few base
-templates which you can use::
+Flask-Debug ships a few base templates which you can use,
+which will use `Flask-Bootstrap <http://pypi.python
+.org/pypi/Flask-Bootstrap`_ if available, or a minimal included template
+otherwise::
 
   {# file: flask_debug_myext/templates/myext/status.html #}
   {% extends "flask_debug/base.html" %}

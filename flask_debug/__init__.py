@@ -114,7 +114,7 @@ def make_current_app_available():
 
 class Debug(object):
     def __init__(self, app=None):
-        import flask_debug_extensions
+        import flask_debug_plugins
         dbg._debug_load_plugins()
         if app:
             self.init_app(app)

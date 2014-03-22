@@ -2,8 +2,37 @@ from functools import wraps
 
 from flask import current_app, render_template, Blueprint, abort, url_for, redirect
 
+import sys
+from jinja2 import PackageLoader, ChoiceLoader
+
 
 dbg = Blueprint('debug', __name__, template_folder='templates')
+
+
+def load_plugins():
+    # load plugins once
+    if hasattr(dbg, '_flask_debug'):
+        return
+
+    dbg._flask_debug = {
+        'extensions': {},
+    }
+
+    for name, mod in sys.modules.items():
+        if (name.startswith('flask_debug_') and
+                hasattr(mod, 'initialize_debug_ext')):
+            mod.initialize_debug_ext(dbg)
+            dbg._flask_debug['extensions'][name] = mod
+
+    # collect loaders
+    loaders = [dbg.jinja_loader]
+    for name, mod in dbg._flask_debug['extensions'].items():
+        template_folder = getattr(mod, 'template_folder', None)
+        if template_folder:
+            loaders.append(PackageLoader(name, template_folder))
+
+    # replace blueprints loader with new loader that includes extensions
+    dbg.jinja_loader = ChoiceLoader(loaders)
 
 
 def requires_debug(view):
@@ -42,6 +71,8 @@ def debug_config():
 
 class Debug(object):
     def __init__(self, app=None):
+        import flask_debug_extensions
+        load_plugins()
         if app:
             self.init_app(app)
 

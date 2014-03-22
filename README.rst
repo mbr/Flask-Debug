@@ -37,7 +37,7 @@ First, create a package named ``flask_debug_yourname``. The prefix
 ``flask_debug_`` is important here. Here is a sample ``__init__.py`` from a
 package like that::
 
-  # file: flask_debug_myext
+  # file: flask_debug_myext/__init__.py
 
   # if you set a variable ``template_folder``, templates will be available
   # from the folder ``flask_debug_myext/templates``.
@@ -68,6 +68,7 @@ Using `Bootstrap <http://getboostrap.com>`_ (without depending on
 to keep the installed code small), Flask-Debug ships a few base templates
 which you can then use::
 
+  {# file: flask_debug_myext/templates/myext/status.html #}
   {% extends "flask_debug/base.html" %}
 
   {% block content %}

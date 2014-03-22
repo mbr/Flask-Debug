@@ -37,3 +37,7 @@ def test_refuses_outside_debug_mode(app, client):
 
     assert client.get('/_reflect/').status_code == 403
     assert client.get('/_config/').status_code == 403
+
+
+def test_plugin_gets_properly_loaded_and_is_working(app, client):
+    assert client.get('/_extensions/').status_code == 200

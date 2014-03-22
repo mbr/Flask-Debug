@@ -1,12 +1,11 @@
 from collections import OrderedDict
 from functools import wraps
+import sys
 
 from flask import current_app, render_template, Blueprint, abort, url_for, redirect, \
     g
-
-import sys
+import inflection
 from jinja2 import PackageLoader, ChoiceLoader
-
 
 
 class DebugBlueprint(Blueprint):
@@ -38,15 +37,28 @@ class DebugBlueprint(Blueprint):
         # replace blueprints loader with new loader that includes extensions
         dbg.jinja_loader = ChoiceLoader(loaders)
 
-    def route(self, rule, **options):
-        on_menu = options.pop('on_menu', True)
+    def _debug_get_menu(self):
+        return self.__menu
+
+    def route(self, rule, menu_name=True, **options):
+        # if only there was nonlocal in py2...
         wrapper = super(DebugBlueprint, self).route(rule, **options)
 
         @wraps(wrapper)
         def _(f):
             endpoint = options.get('endpoint', f.__name__)
+
+            # menu entry, auto-generated
+            name = menu_name
+            if name is True:
+                name = endpoint
+                if name.startswith('debug_'):
+                    name = name[len('debug_'):]
+                    name = inflection.titleize(name)
+
             wrapped = wrapper(f)
-            self.__menu[endpoint] = wrapped
+            if name:
+                self.__menu[name] = '{}.{}'.format(self.name, endpoint)
             return wrapped
 
         return _
@@ -65,7 +77,7 @@ def requires_debug(view):
     return _
 
 
-@dbg.route('/_debug/')  # the root
+@dbg.route('/_debug/', menu_name=None)  # the root
 @requires_debug
 def debug_root():
     return redirect(url_for('.debug_reflect'))
@@ -92,11 +104,12 @@ def debug_config():
 @dbg.before_request
 def make_current_app_available():
     g.app = current_app
+    g.menu = dbg._debug_get_menu()
 
 
 class Debug(object):
     def __init__(self, app=None):
-        import flask_debug_extensions  # import plugin-list plugin
+        import flask_debug_extensions
         dbg._debug_load_plugins()
         if app:
             self.init_app(app)

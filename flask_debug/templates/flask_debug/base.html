@@ -10,11 +10,11 @@
 <div class="container" style="margin-top: 1em;">
 {% block container %}
   <ul class="nav nav-tabs">
-  <li{% if request.endpoint.endswith('.debug_reflect') %} class="active"{%
-      endif %}><a
-          href="{{url_for('.debug_reflect')}}">Reflect</a></li>
-  <li{% if request.endpoint.endswith('.debug_config') %} class="active"{%
-      endif %}><a href="{{url_for('.debug_config')}}">Config</a></li>
+  {% for name, endpoint in g.menu.items() %}
+      <li{% if request.endpoint == endpoint %} class="active"{% endif %}>
+          <a href="{{url_for(endpoint)}}">{{name}}</a>
+      </li>
+  {% endfor %}
 </ul>
 {% endblock %}
 </div>

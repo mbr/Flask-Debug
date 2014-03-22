@@ -23,5 +23,5 @@ setup(
     url='http://github.com/mbr/flask-debug',
     license='MIT',
     packages=find_packages(exclude=['tests']),
-    install_requires=['flask'],
+    install_requires=['flask', 'inflection'],
 )

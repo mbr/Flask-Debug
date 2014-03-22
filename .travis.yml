@@ -2,5 +2,7 @@ language: python
 env:
 - TOXENV=py27
 - TOXENV=py33
+- TOXENV=bootstrap27
+- TOXENV=bootstrap33
 install: pip install tox
 script: tox

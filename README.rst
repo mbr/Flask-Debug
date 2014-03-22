@@ -63,8 +63,8 @@ package like that::
         # namespace
         return render_template('myext/status.html', status=status)
 
-Using <a href="http://getboostrap.com">Bootstrap</a> (without depending on
-<a href="http://pypi.python.org/pypi/Flask-Bootstrap">Flask-Bootstrap</a>,
+Using `Bootstrap <http://getboostrap.com>`_ (without depending on
+`Flask-Bootstrap <http://pypi.python.org/pypi/Flask-Bootstrap>`_,
 to keep the installed code small), Flask-Debug ships a few base templates
 which you can then use::
 

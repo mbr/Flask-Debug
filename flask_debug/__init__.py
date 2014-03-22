@@ -43,13 +43,16 @@ class DebugBlueprint(Blueprint):
     def _debug_get_plugins(self):
         return self.__plugins
 
-    def route(self, rule, menu_name=True, **options):
+    def route(self, rule, menu_name=True, require_debug=True, **options):
         # if only there was nonlocal in py2...
         wrapper = super(DebugBlueprint, self).route(rule, **options)
 
         @wraps(wrapper)
         def _(f):
             endpoint = options.get('endpoint', f.__name__)
+
+            if require_debug:
+                f = requires_debug(f)
 
             # menu entry, auto-generated
             name = menu_name
@@ -82,13 +85,11 @@ def requires_debug(view):
 
 
 @dbg.route('/_debug/', menu_name=None)  # the root
-@requires_debug
 def debug_root():
     return redirect(url_for('.debug_reflect'))
 
 
 @dbg.route('/_reflect/')
-@requires_debug
 def debug_reflect():
     return render_template(
         'flask_debug/reflect.html',
@@ -97,7 +98,6 @@ def debug_reflect():
 
 
 @dbg.route('/_config/')
-@requires_debug
 def debug_config():
     return render_template(
         'flask_debug/config.html',

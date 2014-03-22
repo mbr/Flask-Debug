@@ -86,7 +86,7 @@ def requires_debug(view):
                        'has been started in debug mode.')
 
         msg = []
-        if not strict:
+        if strict:
             # extra security checks
             msg = []
 

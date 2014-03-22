@@ -18,7 +18,7 @@
 
 {% block container %}
     {{super()}}
-        <h1>Reflection for {{app.name}}</h1>
+        <h1>Reflection for {{g.app.name}}</h1>
         <h2>Views</h2>
         <div class="checkbox">
             <label>
@@ -31,7 +31,7 @@
                 <th>Name</th>
                 <th>View function</th>
             </tr>
-        {% for name, view in app.view_functions.items()|sort(True) %}
+        {% for name, view in g.app.view_functions.items()|sort(True) %}
             <tr{% if name.startswith('debug.') %} class="debug-view hidden"{% endif %}>
                 <td><a name="endpoint_{{name.__hash__()}}"></a>{{name}}</td>
                 <td><code>{{view}}</code></td>
@@ -52,7 +52,8 @@
                 <th>Methods</th>
                 <th>Endpoint</th>
             </tr>
-        {% for rule in app.url_map.iter_rules()|sort(True, attribute='endpoint') %}
+        {% for rule in g.app.url_map.iter_rules()|sort(True,
+            attribute='endpoint') %}
             <tr{% if rule.endpoint.startswith('debug.debug_') %}
             class="debug-rule hidden"{% endif %}>
                 <td><a href="{{rule}}">{{rule}}</a></td>
@@ -68,7 +69,7 @@
                 <th>Type-name</th>
                 <th>Converter function</th>
             </tr>
-        {% for name, conv in app.url_map.converters.items() %}
+        {% for name, conv in g.app.url_map.converters.items() %}
             <tr>
                 <td>{{name}}</td>
                 <td><code>{{conv}}</code></td>

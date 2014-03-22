@@ -1,6 +1,7 @@
 from functools import wraps
 
-from flask import current_app, render_template, Blueprint, abort, url_for, redirect
+from flask import current_app, render_template, Blueprint, abort, url_for, redirect, \
+    g
 
 import sys
 from jinja2 import PackageLoader, ChoiceLoader
@@ -67,6 +68,11 @@ def debug_config():
         'flask_debug/config.html',
         app=current_app,
     )
+
+
+@dbg.before_request
+def make_current_app_available():
+    g.app = current_app
 
 
 class Debug(object):

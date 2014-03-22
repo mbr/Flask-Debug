@@ -11,7 +11,7 @@
         {% for key, value in config.items()|sort %}
             <tr>
                 <td>{{key}}</td>
-                <td>{{value}}</td>
+                <td>{{'%r'|format(value)}}</td>
             </tr>
         {% endfor %}
         </table>

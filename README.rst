@@ -33,9 +33,9 @@ It's fairly easy to ship a plugin for Flask-Debug with your own package or
 Flask-extension. This allows you to ship debugging tools right along with
 the extension.
 
-First, create a package named ``flask_debug_yourname``. The prefix
-``flask_debug_`` is important here. Here is a sample ``__init__.py`` from a
-package like that::
+First, create a package named ``flask_debug_yourname``, the prefix
+``flask_debug_`` is important. Your ``__init__.py`` should look somewhat
+like this::
 
   # file: flask_debug_myext/__init__.py
 
@@ -48,24 +48,20 @@ package like that::
 
           return render_template('myext/status.html', status=status)
 
-If you set a variable ``template_folder``, templates will be available from the
-folder ``flask_debug_myext/templates``.
-
 ``initialize_debug_ext()`` will be called with a ``flask.Blueprint``-Object
 as the first parameter, onto which you can register your own routes. The
-``route()`` function will automatically a menu entry, to suppress this
-behavior, add an argument of ``menu_name=None``. It's a good convention to
-start urls with an underscore + your extension name to avoid conflicts.
+``route()`` function will automatically a menu entry (to suppress this
+behavior, add an argument of ``menu_name=None``).
 
-There are a few conventions: Views in plugins should start with ``debug_``,
-URLs in routes should start with underscore + your extension name. Inside
-your ``templates``-folder, you should also create subfolder named ``myext``
-for all of your templates, as the template namespace is global.
+There are a few conventions:
 
-Using `Bootstrap <http://getboostrap.com>`_ (without depending on
-`Flask-Bootstrap <http://pypi.python.org/pypi/Flask-Bootstrap>`_,
-to keep the installed code small), Flask-Debug ships a few base templates
-which you can then use::
+* Views in plugins should start with ``debug_``.
+* URLs in routes should start with underscore + your extension name.
+* Inside your ``templates``-folder, you should also create subfolder named ``myext``
+  for all of your templates, as the template namespace is global.
+
+Using `Bootstrap <http://getboostrap.com>`_, Flask-Debug ships a few base
+templates which you can use::
 
   {# file: flask_debug_myext/templates/myext/status.html #}
   {% extends "flask_debug/base.html" %}
@@ -80,7 +76,7 @@ To finally load the plugin, just do::
 
   import flask_debug_myext
 
-somewhere. Before registering the debugging-blueprint onto the app,
+in your extension. Before registering the debugging-blueprint onto the app,
 Flask-Debug will query ``sys.modules`` for all modules that look like
 Flask-Debug plugins and collect them.
 

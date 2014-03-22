@@ -30,10 +30,13 @@ Flask-Debug is available from `PyPI <http://pypi
 Security
 --------
 
-**Never enable ``debug`` on a production server.** This is Flask basic
-practice (see http://flask.pocoo.org/docs/quickstart/#debug-mode).
-Flask-Debug tries to prevent security disasters if you forget to disable
-debugging in production, but please, don't!
+**Never enable ``debug`` on a production server** (the configuration
+variable, the extension is safe to use in production,
+as it will simply refuse everything when the app is not running with
+debugging enabled). This is Flask basic practice (see
+http://flask.pocoo.org/docs/quickstart/#debug-mode). Flask-Debug tries to
+prevent security disasters if you forget to disable debugging in production,
+but please, don't!
 
 
 Writing your own plugins

@@ -40,6 +40,9 @@ class DebugBlueprint(Blueprint):
     def _debug_get_menu(self):
         return self.__menu
 
+    def _debug_get_plugins(self):
+        return self.__plugins
+
     def route(self, rule, menu_name=True, **options):
         # if only there was nonlocal in py2...
         wrapper = super(DebugBlueprint, self).route(rule, **options)
@@ -106,6 +109,7 @@ def debug_config():
 def make_current_app_available():
     g.app = current_app
     g.menu = dbg._debug_get_menu()
+    g.dbg = dbg
 
 
 class Debug(object):

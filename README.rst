@@ -76,3 +76,14 @@ which you can then use::
   <h1>Status for myext</h1>
   <p>Current status: {{status}}</p>
   {% endblock %}
+
+To finally load the plugin, just do::
+
+  import flask_debug_myext
+
+somewhere. Before registering the debugging-blueprint onto the app,
+Flask-Debug will query ``sys.modules`` for all modules that look like
+Flask-Debug plugins and collect them.
+
+You can check out the ``flask_debug_plugins``-plugin (which lists all
+installed plugins) for an example.

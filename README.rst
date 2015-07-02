@@ -18,6 +18,15 @@ the application, such as a list of registered views,
 url maps or configuration values.
 
 
+Flask-AppConfig
+---------------
+
+`flask-appconfig>=0.10 <https://github.com/mbr/flask-appconfig>`_ supports
+automatic initialization of Flask-Debug while developing, allowing you to
+completely omit it from your own code (and therefore production deployments).
+See the Flask-AppConfig docs for details.
+
+
 Installation
 ------------
 

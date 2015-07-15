@@ -2,8 +2,8 @@ from collections import OrderedDict
 from functools import wraps
 import sys
 
-from flask import current_app, render_template, Blueprint, abort, url_for, redirect, \
-    g, request
+from flask import (current_app, render_template, Blueprint, abort, url_for,
+                   redirect, g, request)
 import inflection
 from jinja2 import PackageLoader, ChoiceLoader
 

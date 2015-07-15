@@ -5,6 +5,7 @@ from flask_debug import requires_debug
 
 template_folder = 'templates'
 
+
 def initialize_debug_ext(dbg):
     @dbg.route('/_extensions/')
     def debug_list_extensions():

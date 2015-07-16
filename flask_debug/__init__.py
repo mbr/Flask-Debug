@@ -1,4 +1,5 @@
 from .dbg import dbg
+from .security import requires_debug
 
 
 class Debug(object):

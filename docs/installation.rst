@@ -1,7 +1,7 @@
 Installing and instantiating
 ============================
 
-First, Flask-Debug must be installed from PyPI <http://pypi.python/org/pypi
+First, Flask-Debug must be installed from `PyPI <http://pypi.python/org/pypi
 /Flask-Debug>`_:
 
 .. code-block:: shell

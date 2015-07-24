@@ -3,7 +3,7 @@
 project = u'Flask-Debug'
 copyright = u'2015, Marc Brinkmann'
 version = '0.4.2'
-release = '0.4.2.dev1'
+release = '0.4.2'
 
 extensions = ['sphinx.ext.autodoc', 'sphinx.ext.intersphinx', 'alabaster']
 source_suffix = '.rst'

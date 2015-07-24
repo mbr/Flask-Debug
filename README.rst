@@ -25,3 +25,4 @@ See the `documentation <http://pythonhosted.org/Flask-Debug>`_ for more
 details.
 
 .. _Flask-Appconfig: https://pypi.python.org/pypi/flask-appconfig
+.. _Flask: http://flask.pocoo.org
